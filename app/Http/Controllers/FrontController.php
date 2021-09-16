@@ -33,19 +33,21 @@ class FrontController extends Controller
     public function editUser($id)
     {
         $user = User::findOrFail($id);
+
         return view('edit_user', ['user' => $user]);
     }
 
     public function updateMembersToList(Request $request, ApiKlaviya $apiKlaviya)
     {
-//        $request->validate([
-//            'name' => ['required', 'string', 'max:255'],
-//            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-//            'phone' => ['required', 'numeric', 'min:11', 'unique:users'],
-//        ]);
-//
-//        $user = User::findOrfail($request->id);
-//        $user->fill($request->all())->saveOrFail();
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'numeric', 'min:11', 'unique:users'],
+        ]);
+
+        $user = User::findOrfail($request->id);
+
+        $user->fill($request->all())->saveOrFail();
 
         $apiKlaviya->processUpdateMembersToList($request->all());
 
@@ -55,6 +57,7 @@ class FrontController extends Controller
     public function getLists()
     {
         $users = User::all();
+
         return view('lists', ['users' => $users]);
     }
 }

@@ -12,11 +12,15 @@ class ApiKlaviya extends Model
 {
     use HasFactory;
 
+    public $client;
+
+    public function __construct()
+    {
+        $this->client = new Klaviyo(env('K_PRIVATE_API_KEY'), env('K_PUBLIC_API_KEY'));
+    }
+
     public function processAddMembersToList($profile)
     {
-
-        $client = new Klaviyo(env('K_PRIVATE_API_KEY'), env('K_PUBLIC_API_KEY'));
-
         $profile = array(new KlaviyoProfile(
             array(
                 'first_name' => $profile['name'],
@@ -25,16 +29,13 @@ class ApiKlaviya extends Model
             )
         ));
 
-        $client->lists->addMembersToList(env('K_LIST'), $profile);
+        $this->client->lists->addMembersToList(env('K_LIST'), $profile);
     }
 
     public function processUpdateMembersToList($profile)
     {
+        $profileId = $this->client->profiles->getProfileIdByEmail($profile['old_email']);
 
-        $client = new Klaviyo(env('K_PRIVATE_API_KEY'), env('K_PUBLIC_API_KEY'));
-
-        $profileId = $client->profiles->getProfileIdByEmail($profile['old_email']);
-//       dd($client->profiles->getProfile( '01FFNE81Q7JPCZ4EVDGAGNPCD9' ));
         $profile = array(new KlaviyoProfile(
             array(
                 'first_name' => $profile['name'],
@@ -43,6 +44,6 @@ class ApiKlaviya extends Model
             )
         ));
 
-        $client->profiles->updateProfile($profileId['id'], $profile);
+        $this->client->profiles->updateProfile($profileId['id'], $profile);
     }
 }

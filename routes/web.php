@@ -17,16 +17,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/add-user', function () {
-    return view('add_user');
-})->middleware(['auth']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/add-user', function () {
+        return view('add_user');
+    });
 
-Route::get('/lists', [\App\Http\Controllers\FrontController::class, 'getLists'])->middleware(['auth'])->name('getLists');
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 
-Route::get('/edit-user/{id}', [\App\Http\Controllers\FrontController::class, 'editUser'])->middleware(['auth'])->name('editUser');
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+    Route::get('/lists', [\App\Http\Controllers\FrontController::class, 'getLists'])->name('getLists');
+    Route::get('/edit-user/{id}', [\App\Http\Controllers\FrontController::class, 'editUser'])->name('editUser');
+    Route::get('import-view', [\App\Http\Controllers\ImportController::class, 'importView']);
+    Route::post('import', [\App\Http\Controllers\ImportController::class, 'import'])->name('import');
+});
 
 require __DIR__ . '/auth.php';
