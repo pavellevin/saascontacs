@@ -29,7 +29,7 @@ class ApiKlaviya extends Model
             )
         ));
 
-        $this->client->lists->addMembersToList(env('K_LIST'), $profile);
+        return $this->client->lists->addMembersToList(env('K_LIST'), $profile);
     }
 
     public function processUpdateMembersToList($profile)
@@ -44,6 +44,6 @@ class ApiKlaviya extends Model
             )
         ));
 
-        $this->client->profiles->updateProfile($profileId['id'], $profile);
+        return $this->client->profiles->updateProfile($profileId['id'], $profile);
     }
 }
