@@ -29,7 +29,11 @@ class ApiKlaviya extends Model
             )
         ));
 
-        return $this->client->lists->addMembersToList(env('K_LIST'), $profile);
+        try {
+            $response = $this->client->lists->addMembersToList(env('K_LIST'), $profile);
+        } catch (Exception $e) {
+            echo 'Выброшено исключение: ', $e->getMessage(), "\n";
+        }
     }
 
     public function processUpdateMembersToList($profile)
@@ -44,6 +48,10 @@ class ApiKlaviya extends Model
             )
         ));
 
-        return $this->client->profiles->updateProfile($profileId['id'], $profile);
+        try {
+            $responce = $this->client->profiles->updateProfile($profileId['id'], $profile);
+        } catch (Exception $e) {
+            echo 'Выброшено исключение: ', $e->getMessage(), "\n";
+        }
     }
 }
