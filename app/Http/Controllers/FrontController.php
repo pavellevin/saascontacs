@@ -7,17 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
+use App\Http\Requests\UserValidate;
 
 class FrontController extends Controller
 {
-    public function addUser(Request $request, ApiKlaviya $apiKlaviya)
+    public function addUser(UserValidate $request, ApiKlaviya $apiKlaviya)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'numeric', 'min:11', 'unique:users'],
-        ]);
-
         if ($user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -37,14 +32,8 @@ class FrontController extends Controller
         return view('edit_user', ['user' => $user]);
     }
 
-    public function updateMembersToList(Request $request, ApiKlaviya $apiKlaviya)
+    public function updateMembersToList(UserValidate $request, ApiKlaviya $apiKlaviya)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'numeric', 'min:11', 'unique:users'],
-        ]);
-
         $user = User::findOrfail($request->id);
 
         $user->fill($request->all())->saveOrFail();
