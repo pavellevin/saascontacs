@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5eb247c97e4a9329a5afbacc0a5ec82",
+    "content-hash": "b933ae307571d7cea1f47412b8cca994",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -876,6 +876,57 @@
                 "source": "https://github.com/guzzle/psr7/tree/2.0.0"
             },
             "time": "2021-06-30T20:03:07+00:00"
+        },
+        {
+            "name": "klaviyo/php-sdk",
+            "version": "2.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/klaviyo/php-klaviyo.git",
+                "reference": "b2157a8563b232066018720b6d475cd058f805d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/klaviyo/php-klaviyo/zipball/b2157a8563b232066018720b6d475cd058f805d3",
+                "reference": "b2157a8563b232066018720b6d475cd058f805d3",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Klaviyo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Klaviyo",
+                    "homepage": "https://github.com/klaviyo"
+                }
+            ],
+            "description": "Klaviyo PHP SDK",
+            "homepage": "http://github.com/klaviyo",
+            "keywords": [
+                "klaviyo",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/klaviyo/php-klaviyo/issues",
+                "source": "https://github.com/klaviyo/php-klaviyo/tree/2.3.3"
+            },
+            "time": "2021-08-17T13:20:46+00:00"
         },
         {
             "name": "laravel/framework",

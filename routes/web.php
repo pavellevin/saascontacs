@@ -21,10 +21,12 @@ Route::get('/add-user', function () {
     return view('add_user');
 })->middleware(['auth']);
 
-Route::post('add-user', [\App\Http\Controllers\FrontController::class, 'addUser'])->name('add');
+Route::get('/lists', [\App\Http\Controllers\FrontController::class, 'getLists'])->middleware(['auth'])->name('getLists');
+
+Route::get('/edit-user/{id}', [\App\Http\Controllers\FrontController::class, 'editUser'])->middleware(['auth'])->name('editUser');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
