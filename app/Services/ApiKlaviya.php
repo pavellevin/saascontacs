@@ -10,39 +10,38 @@ class ApiKlaviya
 {
     public $client;
 
-    public function __construct()
+    private function adapterForProfileKlaviyo($data)
     {
-        $this->client = new Klaviyo(env('K_PRIVATE_API_KEY'), env('K_PUBLIC_API_KEY'));
-    }
-
-    public function processAddMembersToList($profile)
-    {
-        $profile = array(new KlaviyoProfile(
+        return array(new KlaviyoProfile(
             array(
-                'first_name' => $profile['name'],
-                '$email' => $profile['email'],
-                '$phone_number' => $profile['phone'],
+                'first_name' => $data['name'],
+                '$email' => $data['email'],
+                '$phone_number' => $data['phone'],
             )
         ));
+    }
+
+    public function __construct()
+    {
+        $this->client = new Klaviyo(config('api.kPrivateApiKey'), config('api.kPublicApiKey'));
+    }
+
+    public function processAddMembersToList($data)
+    {
+        $profile = $this->adapterForProfileKlaviyo($data);
 
         try {
-            $response = $this->client->lists->addMembersToList(env('K_LIST'), $profile);
+            $response = $this->client->lists->addMembersToList(config('api.kList'), $profile);
         } catch (Exception $e) {
             echo 'Выброшено исключение: ', $e->getMessage(), "\n";
         }
     }
 
-    public function processUpdateMembersToList($profile)
+    public function processUpdateMembersToList($data)
     {
-        $profileId = $this->client->profiles->getProfileIdByEmail($profile['old_email']);
+        $profileId = $this->client->profiles->getProfileIdByEmail($data['old_email']);
 
-        $profile = array(new KlaviyoProfile(
-            array(
-                'first_name' => $profile['name'],
-                '$email' => $profile['email'],
-                '$phone_number' => $profile['phone'],
-            )
-        ));
+        $profile = $this->adapterForProfileKlaviyo($data);
 
         try {
             $responce = $this->client->profiles->updateProfile($profileId['id'], $profile);
