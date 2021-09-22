@@ -18,9 +18,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/add-user', function () {
-        return view('add_user');
-    });
+    Route::view('/add-user', 'add_user');
 
     Route::get('/dashboard', function () {
         return view('dashboard');

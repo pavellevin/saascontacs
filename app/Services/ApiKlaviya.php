@@ -1,17 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Services;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Klaviyo\Klaviyo as Klaviyo;
 use Klaviyo\Model\ProfileModel as KlaviyoProfile;
 
 
-class ApiKlaviya extends Model
+class ApiKlaviya
 {
-    use HasFactory;
-
     public $client;
 
     public function __construct()
